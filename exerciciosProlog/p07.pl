@@ -1,4 +1,4 @@
 %P07 (**) Flatten a nested list structure.
-flatten([], _).
-flatten([H|T],X):- is_list(H), flatten(H, X), flatten(T,X).
-flatten([H|T],X):- \+is_list(H), append(X,H,X1), flatten(T, X1), append(X1,[],X).
+flatten(H, [H]):- \+is_list(H).
+flatten([],[]):- !.
+flatten([H|T],X):-  flatten(H, H2), flatten(T,T2), append(H2, T2, X).
