@@ -53,13 +53,18 @@ solve(A, V, N, _):- number(A), !,
 		    V is 0, N is A.
 solve(A, V, N, A):- atom(A), !,
 		    V is 1, N is 0.
-solve(A, V, N, X):- atom(A), !,
+solve(A, V, N, X):- atom(A), 
+		    test_atomvars(A, X), !,
 		    V is 1, 
 		    N is 0,
 		    X is A.
-
 %% Predicado que joga uma exceção para qualquer caso que não satisfaz os outro predicados solve, ou seja, deve ser um termo que não corresponde ao formato legível pelo programa
 solve(_, _, _, _):- throw('malformed expression').  
+
+%% Predicados que testam se um lado da expressao corretamente contém apenas uma variável
+test_atomvars(_, X):- var(X), !.
+test_atomvars(X, A):- atom(X), atom(A), (X \= A -> throw('more than one var'); true), !.
+test_atomvars(A, A). 
 
 %%% Predicados que calculam a multiplicação de dois termos
 %% O caso onde apenas números estão sendo multiplicados
