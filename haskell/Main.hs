@@ -1,12 +1,12 @@
--- Reads rectangles and outputs them
-
 import System.IO
+import Rect
 
--- | 'main' runs the main program
 main :: IO ()
 main = do
   contents <- getContents
-  putStrLn $ process $ lines contents
+  putStrLn $ process $ readMultipleRects $ lines contents
 
-process :: [String] -> String
-process = unlines . map ("linha: " ++)
+process :: [Rect] -> String
+process = unlines.map(""++)
+--getCompatibleRect :: Rect -> [Rect] -> [Rect]
+--getCompatibleRect (Rect ) list = filter (\) list
